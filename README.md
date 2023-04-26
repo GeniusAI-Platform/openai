@@ -13,6 +13,7 @@ models. You can specify the desired model using the `Model` field in the request
 - File
 - Moderations
 - Completion Patterns
+- Multiple API keys support
 
 ## Install ![Go Version](https://img.shields.io/badge/go%20version-%3E=1.19-61CFDD.svg?style=flat-square)
 
@@ -36,7 +37,8 @@ import (
 )
 
 func main() {
-	cli, err := client.New(os.Getenv("OPENAI_API_KEY"))
+	apiKey := os.Getenv("OPENAI_API_KEY")
+	cli, err := client.New([]string{apiKey})
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -68,6 +70,7 @@ import (
 	"github.com/GoFarsi/openai/patterns/completion"
 	"github.com/GoFarsi/openai/types/programming"
 	"log"
+	"os"
 )
 
 var code string = `
@@ -77,7 +80,8 @@ func add(a, b int) int {
 `
 
 func main() {
-	cli, err := client.New(os.Getenv("OPENAI_API_KEY"))
+	apiKey := os.Getenv("OPENAI_API_KEY")
+	cli, err := client.New([]string{apiKey})
 	if err != nil {
 		log.Fatalln(err)
 	}

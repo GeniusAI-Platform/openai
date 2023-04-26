@@ -10,7 +10,8 @@ import (
 )
 
 func ExampleNewChat() {
-	cli, err := client.New("OPENAI_API_KEY")
+	apiKey := os.Getenv("OPENAI_API_KEY")
+	cli, err := client.New([]string{apiKey})
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -34,7 +35,8 @@ func ExampleNewChat() {
 }
 
 func ExampleNewCompletion() {
-	cli, err := client.New("OPENAI_API_KEY")
+	apiKey := os.Getenv("OPENAI_API_KEY")
+	cli, err := client.New([]string{apiKey})
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -53,7 +55,8 @@ func ExampleNewCompletion() {
 }
 
 func ExampleNewImage() {
-	cli, err := client.New("OPENAI_API_KEY")
+	apiKey := os.Getenv("OPENAI_API_KEY")
+	cli, err := client.New([]string{apiKey})
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -71,7 +74,8 @@ func ExampleNewImage() {
 }
 
 func ExampleNewAudio() {
-	cli, err := client.New("OPENAI_API_KEY")
+	apiKey := os.Getenv("OPENAI_API_KEY")
+	cli, err := client.New([]string{apiKey})
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -96,7 +100,8 @@ func ExampleNewAudio() {
 }
 
 func ExampleNewEmbedding() {
-	cli, err := client.New("OPENAI_API_KEY")
+	apiKey := os.Getenv("OPENAI_API_KEY")
+	cli, err := client.New([]string{apiKey})
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -115,7 +120,8 @@ func ExampleNewEmbedding() {
 }
 
 func ExampleNewFile() {
-	cli, err := client.New("OPENAI_API_KEY")
+	apiKey := os.Getenv("OPENAI_API_KEY")
+	cli, err := client.New([]string{apiKey})
 	if err != nil {
 		log.Fatalln(err)
 	}

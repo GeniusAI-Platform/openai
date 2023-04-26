@@ -6,16 +6,18 @@ import (
 	"github.com/GoFarsi/openai/client"
 	"github.com/GoFarsi/openai/types/programming"
 	"log"
+	"os"
 )
 
-func ExampleCompletion_CreateCompletionFromPattern() {
+func ExampleProgrammingLanguageTranslator() {
 	var code string = `
 func add(a, b int) int {
 	return a + b
 }
 `
 
-	cli, err := client.New("OPENAI_API_KEY")
+	apiKey := os.Getenv("OPENAI_API_KEY")
+	cli, err := client.New([]string{apiKey})
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -40,7 +42,8 @@ func ExampleTextToCommand() {
 create nginx pod with kubectl and 5 replica
 `
 
-	cli, err := client.New("OPENAI_API_KEY")
+	apiKey := os.Getenv("OPENAI_API_KEY")
+	cli, err := client.New([]string{apiKey})
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -65,7 +68,8 @@ func add(a, b int) string {
 }
 `
 
-	cli, err := client.New("OPENAI_API_KEY")
+	apiKey := os.Getenv("OPENAI_API_KEY")
+	cli, err := client.New([]string{apiKey})
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -89,7 +93,8 @@ func ExampleGrammarCorrection() {
 Helo w0rld! how are to you?
 `
 
-	cli, err := client.New("OPENAI_API_KEY")
+	apiKey := os.Getenv("OPENAI_API_KEY")
+	cli, err := client.New([]string{apiKey})
 	if err != nil {
 		log.Fatalln(err)
 	}

@@ -24,7 +24,8 @@ type Client struct {
 	validator  *validator.Validate
 	rate       *rate.Limiter
 
-	apiKey             string
+	roundRobin changer
+
 	baseURL            string
 	organizationID     string
 	emptyMessagesLimit uint
@@ -37,7 +38,6 @@ type Response struct {
 type Transporter interface {
 	GetClient() *http.Client
 	GetValidator() *validator.Validate
-	GetAPIKey() string
 	GetOrganizationID() string
 	Get(ctx context.Context, apiConfig *APIConfig) (*Response, error)
 	Post(ctx context.Context, apiConfig *APIConfig, apiRequest any) (*Response, error)
@@ -45,16 +45,16 @@ type Transporter interface {
 }
 
 // New create openai client
-func New(apiKey string, opts ...Option) (Transporter, error) {
-	if len(apiKey) == 0 {
+func New(apiKeys []string, opts ...Option) (Transporter, error) {
+	if len(apiKeys) == 0 {
 		return nil, errors.ErrAPIKeyIsEmpty
 	}
 
 	client := &Client{
 		validator:          validator.New(),
-		apiKey:             apiKey,
 		baseURL:            _default_base_url,
 		emptyMessagesLimit: _defaultEmptyMessagesLimit,
+		roundRobin:         newRoundRobin(apiKeys...),
 	}
 
 	for _, opt := range opts {
@@ -76,8 +76,8 @@ func (c *Client) GetValidator() *validator.Validate {
 	return c.validator
 }
 
-func (c *Client) GetAPIKey() string {
-	return c.apiKey
+func (c *Client) getAPIKey() string {
+	return c.roundRobin.Next()
 }
 
 func (c *Client) GetOrganizationID() string {
@@ -101,7 +101,7 @@ func (c *Client) Get(ctx context.Context, apiConfig *APIConfig) (*Response, erro
 		}
 	}
 
-	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.apiKey))
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.getAPIKey()))
 	req.Header.Set("Content-Type", "application/json")
 
 	if len(apiConfig.Query) != 0 {
@@ -147,7 +147,7 @@ func (c *Client) Post(ctx context.Context, apiConfig *APIConfig, apiRequest any)
 		}
 	}
 
-	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.apiKey))
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.getAPIKey()))
 	req.Header.Set("Content-Type", "application/json")
 
 	if len(apiConfig.Query) != 0 {
@@ -187,7 +187,7 @@ func (c *Client) PostFile(ctx context.Context, apiConfig *APIConfig, body *bytes
 		}
 	}
 
-	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.apiKey))
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.getAPIKey()))
 	req.Header.Set("Content-Type", contentType)
 	req.Header.Set("Accept", "application/json; charset=utf-8")
 
