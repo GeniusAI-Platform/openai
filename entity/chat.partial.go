@@ -1,5 +1,9 @@
 package entity
 
+import (
+	"encoding/json"
+)
+
 type Role uint8
 
 const (
@@ -19,4 +23,16 @@ func (r Role) String() string {
 	default:
 		return "assistant"
 	}
+}
+
+func (r Role) MarshalJSON() ([]byte, error) {
+	return json.Marshal(r.String())
+}
+
+func (r Role) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return err
+	}
+	return nil
 }

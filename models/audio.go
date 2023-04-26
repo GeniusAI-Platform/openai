@@ -1,5 +1,7 @@
 package models
 
+import "encoding/json"
+
 type Audio uint8
 
 const (
@@ -14,4 +16,16 @@ func (a Audio) String() string {
 	default:
 		return ""
 	}
+}
+
+func (a Audio) MarshalJSON() ([]byte, error) {
+	return json.Marshal(a.String())
+}
+
+func (a Audio) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return err
+	}
+	return nil
 }

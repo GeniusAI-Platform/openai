@@ -25,10 +25,10 @@ type CompletionRequest struct {
 	TopP float32 `json:"top_p,omitempty"`
 	// N How many completions to generate for each prompt
 	N int `json:"n,omitempty"`
-	// Stream Whether to stream back partial progress. If set,
-	//tokens will be sent as data-only server-sent events as they become
-	//available, with the stream terminated by a data: [DONE] message
-	Stream bool `json:"stream,omitempty"`
+
+	//TODO: required implement Stream support
+	// Stream bool `json:"stream,omitempty"`
+
 	// LogProbs Include the log probabilities on the logprobs most likely
 	//tokens, as well the chosen tokens. For example, if logprobs is 5,
 	//the API will return a list of the 5 most likely tokens.

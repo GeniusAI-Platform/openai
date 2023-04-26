@@ -1,5 +1,7 @@
 package models
 
+import "encoding/json"
+
 type Moderation uint8
 
 const (
@@ -18,4 +20,16 @@ func (m Moderation) String() string {
 	default:
 		return ""
 	}
+}
+
+func (m Moderation) MarshalJSON() ([]byte, error) {
+	return json.Marshal(m.String())
+}
+
+func (m Moderation) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return err
+	}
+	return nil
 }

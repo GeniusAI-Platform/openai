@@ -1,11 +1,13 @@
 package models
 
-type ChatModel uint8
+import "encoding/json"
+
+type Chat uint8
 
 const (
 	// GPT4 (GPT-4 model) More capable than any GPT-3.5 model, able to do more complex tasks, and optimized for chat. Will be updated with our latest model iteration.
 	// training data: Up to Sep 2021
-	GPT4 ChatModel = iota + 1
+	GPT4 Chat = iota + 1
 	// GPT4_0314 (GPT-4 model) Snapshot of gpt-4 from March 14th 2023. Unlike gpt-4, this model will not receive updates, and will be deprecated 3 months after a new version is released.
 	// training data: Up to Sep 2021
 	GPT4_0314
@@ -24,7 +26,7 @@ const (
 	GPT35_TURBO_0301
 )
 
-func (c ChatModel) String() string {
+func (c Chat) String() string {
 	switch c {
 	case GPT4:
 		return "gpt-4"
@@ -41,4 +43,16 @@ func (c ChatModel) String() string {
 	default:
 		return ""
 	}
+}
+
+func (c Chat) MarshalJSON() ([]byte, error) {
+	return json.Marshal(c.String())
+}
+
+func (c Chat) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return err
+	}
+	return nil
 }

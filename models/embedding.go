@@ -1,5 +1,7 @@
 package models
 
+import "encoding/json"
+
 type Embedding uint8
 
 const (
@@ -17,4 +19,16 @@ func (e Embedding) String() string {
 	default:
 		return ""
 	}
+}
+
+func (e Embedding) MarshalJSON() ([]byte, error) {
+	return json.Marshal(e.String())
+}
+
+func (e Embedding) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return err
+	}
+	return nil
 }

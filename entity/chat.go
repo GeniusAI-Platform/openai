@@ -22,10 +22,10 @@ type ChatRequest struct {
 	TopP float32 `json:"top_p,omitempty"`
 	// N How many completions to generate for each prompt
 	N int `json:"n,omitempty"`
-	// Stream Whether to stream back partial progress. If set,
-	//tokens will be sent as data-only server-sent events as they become
-	//available, with the stream terminated by a data: [DONE] message
-	Stream bool `json:"stream,omitempty"`
+
+	//TODO: required implement Stream support
+	// Stream bool `json:"stream,omitempty"`
+
 	// Stop Up to 4 sequences where the API will stop generating further tokens.
 	//The returned text will not contain the stop sequence
 	Stop []string `json:"stop,omitempty"`

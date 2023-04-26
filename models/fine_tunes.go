@@ -1,5 +1,7 @@
 package models
 
+import "encoding/json"
+
 type FineTunes uint8
 
 const (
@@ -30,4 +32,16 @@ func (f FineTunes) String() string {
 	default:
 		return ""
 	}
+}
+
+func (f FineTunes) MarshalJSON() ([]byte, error) {
+	return json.Marshal(f.String())
+}
+
+func (f FineTunes) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return err
+	}
+	return nil
 }

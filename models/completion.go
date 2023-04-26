@@ -1,11 +1,13 @@
 package models
 
-type CompletionsModel uint8
+import "encoding/json"
+
+type Completion uint8
 
 const (
 	// TEXT_DAVINCI_003 (GPT-3.5 model) Can do any language task with better quality, longer output, and consistent instruction-following than the curie, babbage, or ada models. Also supports inserting completions within text.
 	// training data: Up to Jun 2021
-	TEXT_DAVINCI_003 CompletionsModel = iota + 1
+	TEXT_DAVINCI_003 Completion = iota + 1
 	// TEXT_DAVINCI_002 (GPT-3.5 model) Similar capabilities to text-davinci-003 but trained with supervised fine-tuning instead of reinforcement learning.
 	// training data: Up to Jun 2021
 	TEXT_DAVINCI_002
@@ -30,7 +32,7 @@ const (
 	CODE_CUSHMAN_001
 )
 
-func (c CompletionsModel) String() string {
+func (c Completion) String() string {
 	switch c {
 	case TEXT_DAVINCI_003:
 		return "text-davinci-003"
@@ -53,4 +55,16 @@ func (c CompletionsModel) String() string {
 	default:
 		return ""
 	}
+}
+
+func (c Completion) MarshalJSON() ([]byte, error) {
+	return json.Marshal(c.String())
+}
+
+func (c Completion) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return err
+	}
+	return nil
 }

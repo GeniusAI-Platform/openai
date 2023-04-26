@@ -1,5 +1,7 @@
 package entity
 
+import "encoding/json"
+
 type AudioFormat uint8
 
 const (
@@ -25,4 +27,16 @@ func (a AudioFormat) String() string {
 	default:
 		return "json"
 	}
+}
+
+func (a AudioFormat) MarshalJSON() ([]byte, error) {
+	return json.Marshal(a.String())
+}
+
+func (a AudioFormat) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return err
+	}
+	return nil
 }

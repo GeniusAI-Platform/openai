@@ -1,5 +1,7 @@
 package entity
 
+import "encoding/json"
+
 type (
 	ImageSize           uint8
 	ImageResponseFormat uint8
@@ -24,6 +26,18 @@ func (i ImageSize) String() string {
 	}
 }
 
+func (i ImageSize) MarshalJSON() ([]byte, error) {
+	return json.Marshal(i.String())
+}
+
+func (i ImageSize) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return err
+	}
+	return nil
+}
+
 const (
 	ImageResponseFormatURL ImageResponseFormat = iota
 	ImageResponseFormatB64JSON
@@ -38,4 +52,16 @@ func (i ImageResponseFormat) String() string {
 	default:
 		return "url"
 	}
+}
+
+func (i ImageResponseFormat) MarshalJSON() ([]byte, error) {
+	return json.Marshal(i.String())
+}
+
+func (i ImageResponseFormat) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return err
+	}
+	return nil
 }
