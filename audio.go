@@ -19,6 +19,7 @@ type Audio struct {
 	client client.Transporter
 }
 
+// NewAudio create audio object to transcription and translation
 func NewAudio(client client.Transporter) *Audio {
 	return &Audio{
 		client: client,
@@ -59,7 +60,7 @@ func (a *Audio) CreateTranscription(ctx context.Context, req entity.AudioRequest
 	return response, nil
 }
 
-// CreateTranslation Translates audio into into English
+// CreateTranslation Translates audio into English
 func (a *Audio) CreateTranslation(ctx context.Context, req entity.AudioRequest) (*entity.AudioResponse, error) {
 	if err := a.client.GetValidator().Struct(req); err != nil {
 		return nil, err

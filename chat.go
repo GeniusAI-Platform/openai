@@ -15,6 +15,7 @@ type ChatCompletion struct {
 	client client.Transporter
 }
 
+// NewChat create chat completion object to create chat with chatgpt
 func NewChat(client client.Transporter) *ChatCompletion {
 	return &ChatCompletion{
 		client: client,

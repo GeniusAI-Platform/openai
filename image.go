@@ -20,6 +20,7 @@ type Image struct {
 	client client.Transporter
 }
 
+// NewImage create Image object to create, edit image or image variation using DALL·E 2
 func NewImage(client client.Transporter) *Image {
 	return &Image{
 		client: client,

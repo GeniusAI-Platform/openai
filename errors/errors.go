@@ -11,6 +11,8 @@ var (
 	ErrChatCompletionStreamNotSupported = errors.New("streaming is not supported with this method, please use CreateChatCompletionStream")
 	ErrFailedToUnmarshalJSON            = errors.New("failed to unmarshal json response")
 	ErrAPIKeyIsEmpty                    = errors.New("api key is empty")
+	ErrFileIsInvalidFormat              = errors.New("file format is invalid, please create jsonl file and check training example: https://platform.openai.com/docs/guides/fine-tuning/prepare-training-data")
+	ErrFileIDIsEmpty                    = errors.New("fileID is empty")
 )
 
 func New(httpCode int, providerCode string, message string, messageType string, param any) *entity.ErrorResponse {

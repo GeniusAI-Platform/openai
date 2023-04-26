@@ -22,6 +22,7 @@ type File struct {
 	client client.Transporter
 }
 
+// NewFile create File object to manage file (upload, retrieve, list)
 func NewFile(client client.Transporter) *File {
 	return &File{
 		client: client,

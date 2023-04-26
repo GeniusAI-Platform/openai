@@ -21,6 +21,6 @@ type FileResponse struct {
 	CreatedAt int64  `json:"created_at"`
 }
 
-type FilesList struct {
+type FilesListResponse struct {
 	Files []FileResponse `json:"data"`
 }

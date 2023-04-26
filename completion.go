@@ -15,6 +15,7 @@ type Completion struct {
 	client client.Transporter
 }
 
+// NewCompletion create Completion object to text completion using davinci
 func NewCompletion(client client.Transporter) *Completion {
 	return &Completion{
 		client: client,

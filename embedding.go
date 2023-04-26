@@ -15,6 +15,7 @@ type Embedding struct {
 	client client.Transporter
 }
 
+// NewEmbedding create embedding object to create embeddings
 func NewEmbedding(client client.Transporter) *Embedding {
 	return &Embedding{
 		client: client,
