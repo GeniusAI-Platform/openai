@@ -41,6 +41,7 @@ type Transporter interface {
 	GetOrganizationID() string
 	Get(ctx context.Context, apiConfig *APIConfig) (*Response, error)
 	Post(ctx context.Context, apiConfig *APIConfig, apiRequest any) (*Response, error)
+	PostFile(ctx context.Context, apiConfig *APIConfig, body *bytes.Buffer, contentType string) (*Response, error)
 }
 
 // New create openai client
@@ -89,7 +90,7 @@ func (c *Client) Get(ctx context.Context, apiConfig *APIConfig) (*Response, erro
 		return nil, errors.New(http.StatusTooManyRequests, "", err.Error(), "", "")
 	}
 
-	req, err := http.NewRequest(GET.String(), c.baseURL+apiConfig.Path, nil)
+	req, err := http.NewRequestWithContext(ctx, GET.String(), c.baseURL+apiConfig.Path, nil)
 	if err != nil {
 		return nil, errors.New(http.StatusInternalServerError, "", err.Error(), "", "")
 	}
@@ -135,7 +136,7 @@ func (c *Client) Post(ctx context.Context, apiConfig *APIConfig, apiRequest any)
 		return nil, errors.New(http.StatusTooManyRequests, "", err.Error(), "", "")
 	}
 
-	req, err := http.NewRequest(POST.String(), url, bytes.NewBuffer(body))
+	req, err := http.NewRequestWithContext(ctx, POST.String(), url, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, errors.New(http.StatusTooManyRequests, "", err.Error(), "", "")
 	}
@@ -148,6 +149,47 @@ func (c *Client) Post(ctx context.Context, apiConfig *APIConfig, apiRequest any)
 
 	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.apiKey))
 	req.Header.Set("Content-Type", "application/json")
+
+	if len(apiConfig.Query) != 0 {
+		req.URL.RawQuery = c.queryBuilder(apiConfig.Query)
+	}
+
+	if c.organizationID != "" {
+		req.Header.Set("OpenAI-Organization", c.organizationID)
+	}
+
+	resp, err := c.do(ctx, req)
+	if err != nil {
+		return nil, errors.New(http.StatusTooManyRequests, "", err.Error(), "", "")
+	}
+
+	return &Response{resp}, nil
+}
+
+func (c *Client) PostFile(ctx context.Context, apiConfig *APIConfig, body *bytes.Buffer, contentType string) (*Response, error) {
+	if err := c.awaitRateLimiter(ctx); err != nil {
+		return nil, errors.New(http.StatusTooManyRequests, "", err.Error(), "", "")
+	}
+
+	url, err := url.JoinPath(c.baseURL, apiConfig.Path)
+	if err != nil {
+		return nil, errors.New(http.StatusTooManyRequests, "", err.Error(), "", "")
+	}
+
+	req, err := http.NewRequestWithContext(ctx, POST.String(), url, body)
+	if err != nil {
+		return nil, errors.New(http.StatusTooManyRequests, "", err.Error(), "", "")
+	}
+
+	if len(apiConfig.Headers) != 0 {
+		for k, v := range apiConfig.Headers {
+			req.Header.Add(k, v)
+		}
+	}
+
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.apiKey))
+	req.Header.Set("Content-Type", contentType)
+	req.Header.Set("Accept", "application/json; charset=utf-8")
 
 	if len(apiConfig.Query) != 0 {
 		req.URL.RawQuery = c.queryBuilder(apiConfig.Query)
