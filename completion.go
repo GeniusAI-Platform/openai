@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/GoFarsi/openai/client"
 	"github.com/GoFarsi/openai/entity"
+	"github.com/GoFarsi/openai/patterns/completion"
 	"net/http"
 )
 
@@ -29,7 +30,7 @@ func (c *Completion) CreateCompletion(ctx context.Context, req entity.Completion
 }
 
 // CreateCompletionFromPattern create a completion using specific patterns
-func (c *Completion) CreateCompletionFromPattern(ctx context.Context, pattern CompletionPattern) (*entity.CompletionResponse, error) {
+func (c *Completion) CreateCompletionFromPattern(ctx context.Context, pattern completion.CompletionPattern) (*entity.CompletionResponse, error) {
 	return c.request(ctx, pattern())
 }
 

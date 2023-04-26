@@ -65,7 +65,8 @@ import (
 	"context"
 	"github.com/GoFarsi/openai"
 	"github.com/GoFarsi/openai/client"
-	"github.com/GoFarsi/openai/utils"
+	"github.com/GoFarsi/openai/patterns/completion"
+	"github.com/GoFarsi/openai/types/programming"
 	"log"
 )
 
@@ -82,10 +83,11 @@ func main() {
 	}
 
 	c := openai.NewCompletion(cli)
-	resp, err := c.CreateCompletionFromPattern(context.Background(), openai.ProgrammingLanguageTranslator(
+	resp, err := c.CreateCompletionFromPattern(context.Background(), completion.ProgrammingLanguageTranslator(
 		code,
-		utils.Go,
-		utils.Python,
+		programming.Go,
+		programming.Python,
+		0,
 	))
 
 	if err != nil {
