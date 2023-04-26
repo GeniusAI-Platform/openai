@@ -21,7 +21,7 @@ func NewChat(client client.Transporter) *ChatCompletion {
 	}
 }
 
-// CreateChatCompletion start chat with chatgpt
+// CreateChatCompletion Creates a completion for the provided prompt and parameters
 func (c *ChatCompletion) CreateChatCompletion(ctx context.Context, req entity.ChatRequest) (*entity.ChatResponse, error) {
 	resp, err := c.client.Post(ctx, &client.APIConfig{Path: chatCompletionEndpoint}, req)
 	if err != nil {
