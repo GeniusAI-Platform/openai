@@ -1,4 +1,4 @@
-# OpenAi [![Go Reference](https://pkg.go.dev/badge/github.com/GoFarsi/openai.svg)](https://pkg.go.dev/github.com/GoFarsi/openai)
+# OpenAi (community-maintained) [![Go Reference](https://pkg.go.dev/badge/github.com/GoFarsi/openai.svg)](https://pkg.go.dev/github.com/GoFarsi/openai)
 Package openai provides a Go SDK for the OpenAI API.this package supports several models, including GPT-4, GPT-3.5, GPT-3, DALL-E, and audio
 models. You can specify the desired model using the `Model` field in the request object.
 
