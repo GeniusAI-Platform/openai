@@ -25,6 +25,15 @@ func NewCompletion(client client.Transporter) *Completion {
 // CreateCompletion Creates a job that fine-tunes a specified model from a given dataset.
 // Response includes details of the enqueued job including job status and the name of the fine-tuned models once complete.
 func (c *Completion) CreateCompletion(ctx context.Context, req entity.CompletionRequest) (*entity.CompletionResponse, error) {
+	return c.request(ctx, req)
+}
+
+// CreateCompletionFromPattern create a completion using specific patterns
+func (c *Completion) CreateCompletionFromPattern(ctx context.Context, pattern CompletionPattern) (*entity.CompletionResponse, error) {
+	return c.request(ctx, pattern())
+}
+
+func (c *Completion) request(ctx context.Context, req entity.CompletionRequest) (*entity.CompletionResponse, error) {
 	if err := c.client.GetValidator().Struct(req); err != nil {
 		return nil, err
 	}
