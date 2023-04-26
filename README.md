@@ -1,11 +1,10 @@
-# openai
+# OpenAi [![Go Reference](https://pkg.go.dev/badge/github.com/GoFarsi/openai.svg)](https://pkg.go.dev/github.com/GoFarsi/openai)
 Package openai provides a Go SDK for the OpenAI API.this package supports several models, including GPT-4, GPT-3.5, GPT-3, DALL-E, and audio
 models. You can specify the desired model using the `Model` field in the request object.
 
 
 ## Support API
 
-- 
 - ChatGPT (GPT-3, GPT-3.5, GPT-4)
 - DALL·E 2
 - Embedding
@@ -14,7 +13,7 @@ models. You can specify the desired model using the `Model` field in the request
 - File
 - Moderations
 
-## Install 
+## Install ![Go Version](https://img.shields.io/badge/go%20version-%3E=1.19-61CFDD.svg?style=flat-square)
 
 ```shell
 $ go get -u github.com/GoFarsi/openai
@@ -56,6 +55,16 @@ func main() {
 ```
 
 See more details in [documentation](https://pkg.go.dev/github.com/GoFarsi/openai).
+
+## TODO
+- [ ] Stream Support
+- [ ] Moderation API
+- [ ] Example API
+- [ ] Fine-Tune API
+- [ ] File API
+- [ ] Engine API
+- [ ] Azure API Support
+- [ ] Client, API Unit test
 
 ## Contributing
 
