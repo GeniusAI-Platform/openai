@@ -1,2 +1,60 @@
 # openai
-OpenAi SDK for Go
+Package openai provides a Go SDK for the OpenAI API.this package supports several models, including GPT-4, GPT-3.5, GPT-3, DALL-E, and audio
+models. You can specify the desired model using the `Model` field in the request object.
+
+
+## Support API
+
+- ChatGPT
+- GPT-3, GPT-4
+- DALL·E 2
+- Whisper
+
+## Install 
+
+```shell
+$ go get -u github.com/GoFarsi/openai
+```
+
+## Example Completion
+
+```go
+package main
+
+import (
+	"context"
+	"github.com/GoFarsi/openai"
+	"github.com/GoFarsi/openai/client"
+	"github.com/GoFarsi/openai/entity"
+	"github.com/GoFarsi/openai/models"
+	"log"
+)
+
+func main() {
+	cli, err := client.New("OPENAI_API_KEY")
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	c := openai.NewCompletion(cli)
+	resp, err := c.CreateCompletion(context.Background(), entity.CompletionRequest{
+		Model:  models.TEXT_DAVINCI_002,
+		Prompt: "can you explain bubble sort algorithm?",
+	})
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	log.Println(resp)
+}
+
+```
+
+See more details in [documentation](https://pkg.go.dev/github.com/GoFarsi/openai).
+
+## Contributing
+
+1. fork project in your GitHub account.
+2. create new branch for new changes.
+3. after change code, send Pull Request.
