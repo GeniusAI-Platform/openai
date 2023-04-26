@@ -29,3 +29,21 @@ func WithRateLimit(every time.Duration, requestPerTime int) Option {
 		client.rate = rate.NewLimiter(rate.Every(every), requestPerTime)
 	}
 }
+
+func WithCustomBaseURL(baseURL string) Option {
+	return func(c *Client) {
+		c.baseURL = baseURL
+	}
+}
+
+func WithOrganizationID(orgID string) Option {
+	return func(c *Client) {
+		c.organizationID = orgID
+	}
+}
+
+func SetEmptyMessageLimit(limit uint) Option {
+	return func(c *Client) {
+		c.emptyMessagesLimit = limit
+	}
+}
