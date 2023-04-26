@@ -1,5 +1,7 @@
 package models
 
+import "encoding/json"
+
 type Edit uint8
 
 const (
@@ -16,4 +18,16 @@ func (e Edit) String() string {
 	default:
 		return ""
 	}
+}
+
+func (e Edit) MarshalJSON() ([]byte, error) {
+	return json.Marshal(e.String())
+}
+
+func (e Edit) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return err
+	}
+	return nil
 }
