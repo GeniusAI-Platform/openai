@@ -5,10 +5,14 @@ models. You can specify the desired model using the `Model` field in the request
 
 ## Support API
 
-- ChatGPT
-- GPT-3, GPT-4
+- 
+- ChatGPT (GPT-3, GPT-3.5, GPT-4)
 - DALL·E 2
-- Whisper
+- Embedding
+- Audio
+- Fine-Tune
+- File
+- Moderations
 
 ## Install 
 
