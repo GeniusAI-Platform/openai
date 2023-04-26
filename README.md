@@ -31,10 +31,11 @@ import (
 	"github.com/GoFarsi/openai/entity"
 	"github.com/GoFarsi/openai/models"
 	"log"
+	"os"
 )
 
 func main() {
-	cli, err := client.New("OPENAI_API_KEY")
+	cli, err := client.New(os.Getenv("OPENAI_API_KEY"))
 	if err != nil {
 		log.Fatalln(err)
 	}
