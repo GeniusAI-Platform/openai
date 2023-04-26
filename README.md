@@ -3,7 +3,7 @@ Package openai provides a Go SDK for the OpenAI API.this package supports severa
 models. You can specify the desired model using the `Model` field in the request object.
 
 
-## Support API
+## Feature
 
 - ChatGPT (GPT-3, GPT-3.5, GPT-4)
 - DALL·E 2
@@ -12,6 +12,7 @@ models. You can specify the desired model using the `Model` field in the request
 - Fine-Tune
 - File
 - Moderations
+- Completion Patterns
 
 ## Install ![Go Version](https://img.shields.io/badge/go%20version-%3E=1.19-61CFDD.svg?style=flat-square)
 
@@ -51,6 +52,47 @@ func main() {
 	}
 
 	log.Println(resp)
+}
+
+```
+
+Example Completion Patterns
+
+```go
+package main
+
+import (
+	"context"
+	"github.com/GoFarsi/openai"
+	"github.com/GoFarsi/openai/client"
+	"github.com/GoFarsi/openai/utils"
+	"log"
+)
+
+var code string = `
+func add(a, b int) int {
+	return a + b
+}
+`
+
+func main() {
+	cli, err := client.New(os.Getenv("OPENAI_API_KEY"))
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	c := openai.NewCompletion(cli)
+	resp, err := c.CreateCompletionFromPattern(context.Background(), openai.ProgrammingLanguageTranslator(
+		code,
+		utils.Go,
+		utils.Python,
+	))
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	log.Println(resp.Choices[0].Text)
 }
 
 ```
