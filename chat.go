@@ -4,7 +4,6 @@ import (
 	"context"
 	"github.com/GoFarsi/openai/client"
 	"github.com/GoFarsi/openai/entity"
-	"net/http"
 )
 
 const (
@@ -33,20 +32,5 @@ func (c *ChatCompletion) CreateChatCompletion(ctx context.Context, req entity.Ch
 		return nil, err
 	}
 
-	response := new(entity.ChatResponse)
-	errResp := new(entity.ErrorResponse)
-
-	if resp.GetHttpResponse().StatusCode != http.StatusOK {
-		if err = resp.GetJSON(errResp); err != nil {
-			return nil, err
-		}
-		errResp.HttpCode = resp.GetHttpResponse().StatusCode
-		return nil, errResp
-	}
-
-	if err = resp.GetJSON(response); err != nil {
-		return nil, err
-	}
-
-	return response, nil
+	return responseHandler[*entity.ChatResponse](resp)
 }

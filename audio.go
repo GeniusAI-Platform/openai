@@ -6,7 +6,6 @@ import (
 	"github.com/GoFarsi/openai/client"
 	"github.com/GoFarsi/openai/entity"
 	"github.com/GoFarsi/openai/utils"
-	"net/http"
 	"strconv"
 )
 
@@ -42,22 +41,7 @@ func (a *Audio) CreateTranscription(ctx context.Context, req entity.AudioRequest
 		return nil, err
 	}
 
-	response := new(entity.AudioResponse)
-	errResp := new(entity.ErrorResponse)
-
-	if resp.GetHttpResponse().StatusCode != http.StatusOK {
-		if err = resp.GetJSON(errResp); err != nil {
-			return nil, err
-		}
-		errResp.HttpCode = resp.GetHttpResponse().StatusCode
-		return nil, errResp
-	}
-
-	if err = resp.GetJSON(response); err != nil {
-		return nil, err
-	}
-
-	return response, nil
+	return responseHandler[*entity.AudioResponse](resp)
 }
 
 // CreateTranslation Translates audio into English
@@ -76,22 +60,7 @@ func (a *Audio) CreateTranslation(ctx context.Context, req entity.AudioRequest) 
 		return nil, err
 	}
 
-	response := new(entity.AudioResponse)
-	errResp := new(entity.ErrorResponse)
-
-	if resp.GetHttpResponse().StatusCode != http.StatusOK {
-		if err = resp.GetJSON(errResp); err != nil {
-			return nil, err
-		}
-		errResp.HttpCode = resp.GetHttpResponse().StatusCode
-		return nil, errResp
-	}
-
-	if err = resp.GetJSON(response); err != nil {
-		return nil, err
-	}
-
-	return response, nil
+	return responseHandler[*entity.AudioResponse](resp)
 }
 
 func (a *Audio) createForm(req entity.AudioRequest) (*bytes.Buffer, string, error) {

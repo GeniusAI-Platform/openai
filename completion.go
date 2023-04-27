@@ -5,7 +5,6 @@ import (
 	"github.com/GoFarsi/openai/client"
 	"github.com/GoFarsi/openai/entity"
 	"github.com/GoFarsi/openai/patterns/completion"
-	"net/http"
 )
 
 const (
@@ -44,20 +43,5 @@ func (c *Completion) request(ctx context.Context, req entity.CompletionRequest) 
 		return nil, err
 	}
 
-	response := new(entity.CompletionResponse)
-	errResp := new(entity.ErrorResponse)
-
-	if resp.GetHttpResponse().StatusCode != http.StatusOK {
-		if err = resp.GetJSON(errResp); err != nil {
-			return nil, err
-		}
-		errResp.HttpCode = resp.GetHttpResponse().StatusCode
-		return nil, errResp
-	}
-
-	if err = resp.GetJSON(response); err != nil {
-		return nil, err
-	}
-
-	return response, nil
+	return responseHandler[*entity.CompletionResponse](resp)
 }

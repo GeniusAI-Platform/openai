@@ -6,7 +6,6 @@ import (
 	"github.com/GoFarsi/openai/client"
 	"github.com/GoFarsi/openai/entity"
 	"github.com/GoFarsi/openai/utils"
-	"net/http"
 	"strconv"
 )
 
@@ -38,22 +37,7 @@ func (i *Image) CreateImage(ctx context.Context, req entity.ImageRequest) (*enti
 		return nil, err
 	}
 
-	response := new(entity.ImageResponse)
-	errResp := new(entity.ErrorResponse)
-
-	if resp.GetHttpResponse().StatusCode != http.StatusOK {
-		if err = resp.GetJSON(errResp); err != nil {
-			return nil, err
-		}
-		errResp.HttpCode = resp.GetHttpResponse().StatusCode
-		return nil, errResp
-	}
-
-	if err = resp.GetJSON(response); err != nil {
-		return nil, err
-	}
-
-	return response, nil
+	return responseHandler[*entity.ImageResponse](resp)
 }
 
 // ImageEdit Creates an edited or extended image given an original image and a prompt
@@ -108,22 +92,7 @@ func (i *Image) ImageEdit(ctx context.Context, req entity.ImageEditRequest) (*en
 		return nil, err
 	}
 
-	response := new(entity.ImageResponse)
-	errResp := new(entity.ErrorResponse)
-
-	if resp.GetHttpResponse().StatusCode != http.StatusOK {
-		if err = resp.GetJSON(errResp); err != nil {
-			return nil, err
-		}
-		errResp.HttpCode = resp.GetHttpResponse().StatusCode
-		return nil, errResp
-	}
-
-	if err = resp.GetJSON(response); err != nil {
-		return nil, err
-	}
-
-	return response, nil
+	return responseHandler[*entity.ImageResponse](resp)
 }
 
 // CreateImageVariation Creates a variation of a given image
@@ -168,20 +137,5 @@ func (i *Image) CreateImageVariation(ctx context.Context, req entity.ImageVariat
 		return nil, err
 	}
 
-	response := new(entity.ImageResponse)
-	errResp := new(entity.ErrorResponse)
-
-	if resp.GetHttpResponse().StatusCode != http.StatusOK {
-		if err = resp.GetJSON(errResp); err != nil {
-			return nil, err
-		}
-		errResp.HttpCode = resp.GetHttpResponse().StatusCode
-		return nil, errResp
-	}
-
-	if err = resp.GetJSON(response); err != nil {
-		return nil, err
-	}
-
-	return response, nil
+	return responseHandler[*entity.ImageResponse](resp)
 }
