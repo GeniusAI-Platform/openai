@@ -7,7 +7,9 @@ import (
 	"github.com/GoFarsi/openai/client"
 	"github.com/GoFarsi/openai/entity"
 	"github.com/GoFarsi/openai/errors"
+	"github.com/GoFarsi/openai/types"
 	"github.com/GoFarsi/openai/utils"
+	"net/http"
 	"path/filepath"
 )
 
@@ -72,9 +74,9 @@ func (f *File) UploadFile(ctx context.Context, req entity.FileUploadRequest) (*e
 }
 
 // RetrieveFile Returns information about a specific file or file content
-func (f *File) RetrieveFile(ctx context.Context, fileID string, content bool) (*entity.FileResponse, error) {
-	if len(fileID) == 0 {
-		return nil, errors.ErrFileIDIsEmpty
+func (f *File) RetrieveFile(ctx context.Context, fileID types.ID, content bool) (*entity.FileResponse, error) {
+	if fileID.IsEmpty() {
+		return nil, errors.New(http.StatusBadRequest, "", "fileID is empty", "", "")
 	}
 
 	path := fmt.Sprintf(fileDynamicEndpoint, fileID)

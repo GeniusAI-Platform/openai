@@ -143,3 +143,23 @@ func ExampleNewFile() {
 
 	log.Println(resp)
 }
+
+func ExampleNewFineTune() {
+	apiKey := os.Getenv("OPENAI_API_KEY")
+	cli, err := client.New([]string{apiKey})
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	c := NewFineTune(cli)
+	resp, err := c.CreateFineTune(context.Background(), entity.FineTuneRequest{
+		Model:        models.DAVINCI,
+		TrainingFile: "file-xyz",
+	})
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	log.Println(resp)
+}
