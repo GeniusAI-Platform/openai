@@ -52,3 +52,8 @@ func SetEmptyMessageLimit(limit uint) Option {
 func Concurrency(n int) Option {
 	return func(c *Client) { c.concurrent = n }
 }
+
+// Timeout changes Client's timeout per request.
+func Timeout(d time.Duration) Option {
+	return func(c *Client) { c.timeout = d }
+}
