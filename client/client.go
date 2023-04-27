@@ -10,6 +10,8 @@ import (
 	"golang.org/x/time/rate"
 	"net/http"
 	"net/url"
+	"runtime"
+	"time"
 )
 
 var _ Transporter = (*Client)(nil)
@@ -25,6 +27,9 @@ type Client struct {
 	rate       *rate.Limiter
 
 	roundRobin changer
+
+	timeout    time.Duration
+	concurrent int
 
 	baseURL            string
 	organizationID     string
@@ -63,7 +68,7 @@ func New(apiKeys []string, opts ...Option) (Transporter, error) {
 	}
 
 	if client.httpClient == nil {
-		client.httpClient = http.DefaultClient
+		client.httpClient = client.client()
 	}
 
 	return client, nil
@@ -75,10 +80,6 @@ func (c *Client) GetClient() *http.Client {
 
 func (c *Client) GetValidator() *validator.Validate {
 	return c.validator
-}
-
-func (c *Client) getAPIKey() string {
-	return c.roundRobin.Next()
 }
 
 func (c *Client) GetOrganizationID() string {
@@ -321,4 +322,24 @@ func (c *Client) queryBuilder(params map[string]string) string {
 		query[k] = []string{v}
 	}
 	return query.Encode()
+}
+
+func (c *Client) concurrency() int {
+	if c.concurrent > 0 {
+		return c.concurrent
+	}
+	return runtime.NumCPU()
+}
+
+func (c *Client) getAPIKey() string {
+	return c.roundRobin.Next()
+}
+
+func (c *Client) client() *http.Client {
+	return &http.Client{
+		Timeout: c.timeout,
+		Transport: &http.Transport{
+			MaxIdleConnsPerHost: c.concurrency(),
+		},
+	}
 }

@@ -47,3 +47,8 @@ func SetEmptyMessageLimit(limit uint) Option {
 		c.emptyMessagesLimit = limit
 	}
 }
+
+// Concurrency changes Client's concurrency level.
+func Concurrency(n int) Option {
+	return func(c *Client) { c.concurrent = n }
+}
