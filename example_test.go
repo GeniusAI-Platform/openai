@@ -163,3 +163,22 @@ func ExampleNewFineTune() {
 
 	log.Println(resp)
 }
+
+func ExampleNewModeration() {
+	apiKey := os.Getenv("OPENAI_API_KEY")
+	cli, err := client.New([]string{apiKey})
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	c := NewModeration(cli)
+	resp, err := c.CreateModeration(context.Background(), entity.ModerationRequest{
+		Input: "I want to kill them.",
+	})
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	log.Println(resp)
+}
