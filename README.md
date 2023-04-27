@@ -107,9 +107,9 @@ See more details in [documentation](https://pkg.go.dev/github.com/GoFarsi/openai
 
 ## TODO
 - [ ] Stream Support
-- [ ] Moderation API
+- [x] Moderation API
 - [x] Example API
-- [ ] Fine-Tune API
+- [x] Fine-Tune API
 - [x] File API
 - [ ] Engine API
 - [ ] Azure API Support
