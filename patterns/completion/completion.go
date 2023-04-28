@@ -29,6 +29,7 @@ func ProgrammingLanguageTranslator(code string, languageFrom, languageTo program
 			0,
 			0.0,
 			0.0,
+			0.0,
 			maxTokens,
 			[]string{"###"}...,
 		)
@@ -56,6 +57,34 @@ func ProgrammingBugFixer(code string, language programming.ProgrammingLanguage, 
 			0,
 			0.0,
 			0.0,
+			0.0,
+			maxTokens,
+			[]string{"###"}...,
+		)
+	}
+}
+
+// ProgrammingAlgorithmOptimizer improve performance your algorithm function
+func ProgrammingAlgorithmOptimizer(code string, language programming.ProgrammingLanguage, maxTokens int) CompletionPattern {
+	style := `
+##### Improve performance in the below function
+ 
+### Performance %s
+%s
+    
+### Improved %s
+`
+	prompt := fmt.Sprintf(style, language, code, language)
+
+	return func() entity.CompletionRequest {
+		return requestBuilder(
+			models.TEXT_DAVINCI_003,
+			prompt,
+			1.0,
+			0.7,
+			0.0,
+			0.0,
+			1,
 			maxTokens,
 			[]string{"###"}...,
 		)
@@ -79,6 +108,7 @@ Convert this text to a programmatic command:
 			0,
 			0.0,
 			0.2,
+			0.0,
 			maxTokens,
 			[]string{`\n`}...,
 		)
@@ -102,12 +132,13 @@ Correct this to standard English:
 			0,
 			0.0,
 			0.0,
+			0.0,
 			maxTokens,
 		)
 	}
 }
 
-func requestBuilder(model models.Completion, prompt any, topP, temperature, frequencyPenalty, presencePenalty float32, maxTokens int, stop ...string) entity.CompletionRequest {
+func requestBuilder(model models.Completion, prompt any, topP, temperature, frequencyPenalty, presencePenalty float32, bestOf, maxTokens int, stop ...string) entity.CompletionRequest {
 	req := entity.CompletionRequest{
 		Model:            model,
 		Prompt:           prompt,
@@ -115,6 +146,7 @@ func requestBuilder(model models.Completion, prompt any, topP, temperature, freq
 		Temperature:      temperature,
 		FrequencyPenalty: frequencyPenalty,
 		PresencePenalty:  presencePenalty,
+		BestOf:           bestOf,
 		Stop:             stop,
 	}
 
