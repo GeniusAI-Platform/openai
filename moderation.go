@@ -2,8 +2,8 @@ package openai
 
 import (
 	"context"
-	"github.com/GoFarsi/openai/client"
-	"github.com/GoFarsi/openai/entity"
+	"github.com/GeniusAI-Platform/openai/client"
+	"github.com/GeniusAI-Platform/openai/entity"
 )
 
 const (

@@ -3,10 +3,10 @@ package openai
 import (
 	"context"
 	"fmt"
-	"github.com/GoFarsi/openai/client"
-	"github.com/GoFarsi/openai/entity"
-	"github.com/GoFarsi/openai/errors"
-	"github.com/GoFarsi/openai/types"
+	"github.com/GeniusAI-Platform/openai/client"
+	"github.com/GeniusAI-Platform/openai/entity"
+	"github.com/GeniusAI-Platform/openai/errors"
+	"github.com/GeniusAI-Platform/openai/types"
 	"net/http"
 )
 

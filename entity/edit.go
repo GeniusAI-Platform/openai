@@ -1,6 +1,6 @@
 package entity
 
-import "github.com/GoFarsi/openai/models"
+import "github.com/GeniusAI-Platform/openai/models"
 
 type EditsRequest struct {
 	Model models.Edit `json:"model" validate:"required"`

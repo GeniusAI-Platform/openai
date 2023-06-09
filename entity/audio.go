@@ -1,7 +1,7 @@
 package entity
 
 import (
-	"github.com/GoFarsi/openai/models"
+	"github.com/GeniusAI-Platform/openai/models"
 	"os"
 )
 

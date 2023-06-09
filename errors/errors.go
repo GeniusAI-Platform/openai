@@ -2,7 +2,7 @@ package errors
 
 import (
 	"errors"
-	"github.com/GoFarsi/openai/entity"
+	"github.com/GeniusAI-Platform/openai/entity"
 )
 
 var (

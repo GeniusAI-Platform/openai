@@ -5,7 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/GoFarsi/openai/errors"
+	"github.com/GeniusAI-Platform/openai/errors"
 	"github.com/go-playground/validator/v10"
 	"golang.org/x/time/rate"
 	"net/http"

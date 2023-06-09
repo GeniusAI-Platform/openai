@@ -1,6 +1,6 @@
 package entity
 
-import "github.com/GoFarsi/openai/models"
+import "github.com/GeniusAI-Platform/openai/models"
 
 // EmbeddingRequest is the input to a Create embeddings request.
 type EmbeddingRequest struct {

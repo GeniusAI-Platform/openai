@@ -2,9 +2,9 @@ package openai
 
 import (
 	"context"
-	"github.com/GoFarsi/openai/client"
-	"github.com/GoFarsi/openai/entity"
-	"github.com/GoFarsi/openai/patterns/completion"
+	"github.com/GeniusAI-Platform/openai/client"
+	"github.com/GeniusAI-Platform/openai/entity"
+	"github.com/GeniusAI-Platform/openai/patterns/completion"
 )
 
 const (

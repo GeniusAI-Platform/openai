@@ -2,9 +2,9 @@ package completion
 
 import (
 	"context"
-	"github.com/GoFarsi/openai"
-	"github.com/GoFarsi/openai/client"
-	"github.com/GoFarsi/openai/types/programming"
+	"github.com/GeniusAI-Platform/openai"
+	"github.com/GeniusAI-Platform/openai/client"
+	"github.com/GeniusAI-Platform/openai/types/programming"
 	"log"
 	"os"
 )

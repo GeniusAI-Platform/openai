@@ -1,6 +1,6 @@
 package entity
 
-import "github.com/GoFarsi/openai/models"
+import "github.com/GeniusAI-Platform/openai/models"
 
 type CompletionRequest struct {
 	Model models.Completion `json:"model" validate:"required"`

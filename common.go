@@ -1,9 +1,9 @@
 package openai
 
 import (
-	"github.com/GoFarsi/openai/client"
-	"github.com/GoFarsi/openai/entity"
-	"github.com/GoFarsi/openai/errors"
+	"github.com/GeniusAI-Platform/openai/client"
+	"github.com/GeniusAI-Platform/openai/entity"
+	"github.com/GeniusAI-Platform/openai/errors"
 	"net/http"
 	"reflect"
 )

@@ -1,6 +1,6 @@
 package entity
 
-import "github.com/GoFarsi/openai/models"
+import "github.com/GeniusAI-Platform/openai/models"
 
 type ModerationRequest struct {
 	// Model wo content moderations models are available: models.TEXT_MODERATION_STABLE and models.TEXT_MODERATION_LATEST

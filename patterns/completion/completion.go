@@ -2,9 +2,9 @@ package completion
 
 import (
 	"fmt"
-	"github.com/GoFarsi/openai/entity"
-	"github.com/GoFarsi/openai/models"
-	"github.com/GoFarsi/openai/types/programming"
+	"github.com/GeniusAI-Platform/openai/entity"
+	"github.com/GeniusAI-Platform/openai/models"
+	"github.com/GeniusAI-Platform/openai/types/programming"
 )
 
 type CompletionPattern func() entity.CompletionRequest

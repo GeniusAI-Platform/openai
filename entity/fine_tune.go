@@ -1,6 +1,6 @@
 package entity
 
-import "github.com/GoFarsi/openai/models"
+import "github.com/GeniusAI-Platform/openai/models"
 
 type FineTuneRequest struct {
 	Model models.FineTunes `json:"model,omitempty"`

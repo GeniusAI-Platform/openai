@@ -1,4 +1,4 @@
-# OpenAi (community-maintained) [![Go Reference](https://pkg.go.dev/badge/github.com/GoFarsi/openai.svg)](https://pkg.go.dev/github.com/GoFarsi/openai)
+# OpenAi (community-maintained) [![Go Reference](https://pkg.go.dev/badge/github.com/GeniusAI-Platform/openai.svg)](https://pkg.go.dev/github.com/GeniusAI-Platform/openai)
 Package openai provides a Go SDK for the OpenAI API.this package supports several models, including GPT-4, GPT-3.5, GPT-3, DALL-E, and audio
 models. You can specify the desired model using the `Model` field in the request object.
 
@@ -18,7 +18,7 @@ models. You can specify the desired model using the `Model` field in the request
 ## Install ![Go Version](https://img.shields.io/badge/go%20version-%3E=1.19-61CFDD.svg?style=flat-square)
 
 ```shell
-$ go get -u github.com/GoFarsi/openai
+$ go get -u github.com/GeniusAI-Platform/openai
 ```
 
 ## Example Completion
@@ -28,10 +28,10 @@ package main
 
 import (
 	"context"
-	"github.com/GoFarsi/openai"
-	"github.com/GoFarsi/openai/client"
-	"github.com/GoFarsi/openai/entity"
-	"github.com/GoFarsi/openai/models"
+	"github.com/GeniusAI-Platform/openai"
+	"github.com/GeniusAI-Platform/openai/client"
+	"github.com/GeniusAI-Platform/openai/entity"
+	"github.com/GeniusAI-Platform/openai/models"
 	"log"
 	"os"
 )
@@ -65,10 +65,10 @@ package main
 
 import (
 	"context"
-	"github.com/GoFarsi/openai"
-	"github.com/GoFarsi/openai/client"
-	"github.com/GoFarsi/openai/patterns/completion"
-	"github.com/GoFarsi/openai/types/programming"
+	"github.com/GeniusAI-Platform/openai"
+	"github.com/GeniusAI-Platform/openai/client"
+	"github.com/GeniusAI-Platform/openai/patterns/completion"
+	"github.com/GeniusAI-Platform/openai/types/programming"
 	"log"
 	"os"
 )
@@ -103,7 +103,7 @@ func main() {
 
 ```
 
-See more details in [documentation](https://pkg.go.dev/github.com/GoFarsi/openai).
+See more details in [documentation](https://pkg.go.dev/github.com/GeniusAI-Platform/openai).
 
 ## TODO
 - [ ] Stream Support

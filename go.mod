@@ -1,4 +1,4 @@
-module github.com/GoFarsi/openai
+module github.com/GeniusAI-Platform/openai
 
 go 1.19
 
